@@ -4,6 +4,7 @@ public class Character : MonoBehaviour
 {
     public CharacterData _data;
     public GameObject ConnectedButton;
+    public Layout_Manager ConnectedOutput;
     public Character()
     {
         _data = new CharacterData();
@@ -22,69 +23,34 @@ public class Character : MonoBehaviour
         }
        
         transform.localScale = new Vector3(1f, 1f);
-        RectTransform temp = BaseData().GetComponent<RectTransform>();
-        RectTransform temp2 = Attributes().GetComponent<RectTransform>();
-        RectTransform temp3 = Skills().GetComponent<RectTransform>();
-        RectTransform temp4 = Advantages().GetComponent<RectTransform>();
-        temp2.anchoredPosition = new Vector2(0, Utility.FindLowestRectTransform(temp).y + Prefab_Manager.Shift()*-2);
-        Debug.Log(temp3.anchoredPosition);
-        temp3.anchoredPosition = new Vector2(0, -80);
-        Debug.Log(temp3.anchoredPosition);
+        BaseData();
+        Attributes();
+        Skills();
+        //RectTransform temp4 = Advantages().GetComponent<RectTransform>();
         transform.localScale = new Vector3(0.8f, 0.8f);
-       
     }
-    private GameObject BaseData()
+    private void BaseData()
     {
-        float width = 0;
-        GameObject _BaseData = new GameObject("BaseData");
-        RectTransform _BaseData_transform = _BaseData.AddComponent<RectTransform>();
-        _BaseData_transform.SetParent(transform);
-        _BaseData_transform.anchoredPosition = Vector2.zero;
-        int count = 0;
-        int bigCount = -1;
-        for (int i = 0; i < _data.BaseData.Length; ++i)
+        foreach (var cur in _data.BaseData)
         {
-            if(Mathf.Abs(count) % 3 == 0)
-            {
-                count = 0;
-                bigCount++;
-            }
-            var cur = _data.BaseData[i];
-            GameObject temp = new GameObject(cur.fixedData);
-            RectTransform tempRectTransform = temp.AddComponent<RectTransform>();
-            tempRectTransform.SetParent(_BaseData_transform);
-            temp.AddComponent<str_Data_Manager>().Init(cur);
-            Vector2 newPosition = new Vector2(Prefab_Manager._executor.TextBox_SizeSettings.x * bigCount * 2, Prefab_Manager._executor.TextBox_SizeSettings.y * count);
-            tempRectTransform.anchoredPosition = newPosition;
-            width += tempRectTransform.anchoredPosition.x;
-            count--;
+            ConnectedOutput.addElement_BaseData(cur);
         }
-        return _BaseData;
     }
-    private GameObject Attributes()
+    private void Attributes()
     {
-        float width = 0;
-        GameObject _Attributes = new GameObject("Attributes");
-        RectTransform _Attributes_transform = _Attributes.AddComponent<RectTransform>();
-        _Attributes_transform.SetParent(transform);
-        _Attributes_transform.anchoredPosition = Vector2.zero;
-        for (int i = 0; i < _data.Attributes.Length; ++i)
+        foreach (var cur in _data.Attributes)
         {
-            var cur = _data.Attributes[i];
-            cur._isAttribute = true;
-            GameObject temp = new GameObject(cur._name);
-            RectTransform tempRectTransform = temp.AddComponent<RectTransform>();
-            tempRectTransform.SetParent(_Attributes_transform);
-            Vector2 Shift = temp.AddComponent<Block_CheckBoxManagers>().Init(cur).Max;
-            Vector2 newPosition = i == 0 ?
-                Vector2.zero
-                : new Vector2(width + Prefab_Manager._executor.TextBox_SizeSettings.x * 2.5f, 0);
-            tempRectTransform.anchoredPosition = newPosition;
-            width += tempRectTransform.anchoredPosition.x;
+            ConnectedOutput.addElement_Attributes(cur);
         }
-        return _Attributes;
     }
-    private GameObject Advantages()
+    private void Skills()
+    {
+        foreach (var cur in _data.Skills)
+        {
+            ConnectedOutput.addElement_Skills(cur);
+        }
+    }
+    /*private GameObject Advantages()
     {
         float width = 0;
         GameObject _Advantages = new GameObject("Advantages");
@@ -105,8 +71,8 @@ public class Character : MonoBehaviour
             width += tempRectTransform.anchoredPosition.x;
         }
         return _Advantages;
-    }
-    private GameObject Skills()
+    }*/
+    /*private GameObject Sk1ills()
     {
         float height = 0;
         GameObject _Skills = new GameObject("Skills");
@@ -126,20 +92,19 @@ public class Character : MonoBehaviour
             height -= Prefab_Manager._executor.TextBox_SizeSettings.y * delt;
         }
         return _Skills;
-    }
+    }*/
 
     [ContextMenu("Clear List")]
     public void ClearList()
     {
-        var children = new System.Collections.Generic.List<GameObject>();
-        foreach (Transform child in transform) children.Add(child.gameObject);
-        children.ForEach(child => DestroyImmediate(child));
+        ConnectedOutput.Clear();
     }
 
     [ContextMenu("ReCreate List")]
     public void ReGenerate()
     {
         ClearList();
+        _data = new CharacterData();
         GenerateList();
     }
 

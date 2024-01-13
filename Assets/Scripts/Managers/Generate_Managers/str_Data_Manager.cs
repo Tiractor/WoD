@@ -5,8 +5,6 @@ using System.Collections.Generic;
 public class str_Data_Manager : MonoBehaviour
 {
     [SerializeField]
-    private TMPro.TMP_InputField changeableData_Output;
-    [SerializeField]
     private TMPro.TextMeshProUGUI fixedData_Output;
     [SerializeField] private str_Data ConnectedData;
     [HideInInspector] public float Max_X;
@@ -27,6 +25,8 @@ public class str_Data_Manager : MonoBehaviour
         GameObject temp_Text = new GameObject(ConnectedData.fixedData + "_Text");
         RectTransform tempRectTransform = temp_Text.AddComponent<RectTransform>();
         tempRectTransform.SetParent(transform);
+        tempRectTransform.anchorMin = Prefab_Manager._executor.AnchorsText[0];
+        tempRectTransform.anchorMax = Prefab_Manager._executor.AnchorsText[1];
         TMPro.TextMeshProUGUI temp = temp_Text.AddComponent<TMPro.TextMeshProUGUI>();
         temp.text = ConnectedData.fixedData;
         temp.fontSizeMax = 36;
@@ -47,8 +47,9 @@ public class str_Data_Manager : MonoBehaviour
         newObject.name = ConnectedData.fixedData + "_InputField";
         TMPro.TMP_InputField temp_IF = newObject.GetComponent<TMPro.TMP_InputField>();
         RectTransform tempRectTransform = newObject.GetComponent<RectTransform>();
-        Vector2 newPosition = new Vector2(Prefab_Manager._executor.TextBox_SizeSettings.x, 0);
-        tempRectTransform.anchoredPosition = newPosition;
+        tempRectTransform.anchorMin = Prefab_Manager._executor.AnchorsIF[0];
+        tempRectTransform.anchorMax = Prefab_Manager._executor.AnchorsIF[1];
+        tempRectTransform.anchoredPosition = Vector2.zero;
 
         temp_IF.onValueChanged.AddListener(delegate
             {

@@ -2,17 +2,33 @@ using UnityEngine;
 
 public class Prefab_Manager : TaskExecutor<Prefab_Manager>
 {
-
+    [Header("CheckBox")]
     public GameObject CheckBox_Base;
     public GameObject CheckBox_Clear;
+
+    [Header("Buttons")]
     public GameObject Button_Character;
     public GameObject Button_CloseCharacter;
     public GameObject Button_SettingsCharacter;
+
+    [Header("Other")]
     public GameObject InputField;
-    public Vector2 TextBox_SizeSettings;
-    private static float _shift;
-    public Vector2 Button;
+    public GameObject CharacterBase;
     public TMPro.TMP_FontAsset Font;
+
+    [Header("Size Settings")]
+    public Vector2 TextBox_SizeSettings;
+    public Vector2 Button;
+    public Vector2 SizeCounters;
+
+    [Header("Anchors")]
+    public Vector2[] AnchorsText = new Vector2[2];
+    public Vector2[] AnchorsIF = new Vector2[2];
+    public Vector2[] AnchorsCounters = new Vector2[2];
+    public Vector2[] AnchorsSkills = new Vector2[2];
+
+
+    private static float _shift;
     public static float Shift()
     {
         if (_shift == 0) 

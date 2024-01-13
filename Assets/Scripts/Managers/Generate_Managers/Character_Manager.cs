@@ -17,14 +17,9 @@ public class Character_Manager : TaskExecutor<Character_Manager>
     [ContextMenu("Create new blank Character")]
     public Character CreateCharacter()
     {
-        GameObject temp = new GameObject("Character_" + Characters.Count);
-        RectTransform tempRectTransform = temp.AddComponent<RectTransform>();
-        
-        tempRectTransform.anchorMax = new Vector2(0, 1);
-        tempRectTransform.anchorMin = new Vector2(0, 1);
-        tempRectTransform.SetParent(WhereInst.transform);
-        tempRectTransform.anchoredPosition = new Vector2(450,-50);
-        Character tempChar = temp.AddComponent<Character>();
+        GameObject temp = Instantiate(Prefab_Manager._executor.CharacterBase, WhereInst.transform);
+        temp.name = "Character_" + Characters.Count;
+        Character tempChar = temp.GetComponent<Character>();
         Characters.Add(tempChar);
         OpenCharacter(tempChar);
         tempChar.ConnectedButton = GenerateButton(tempChar);
@@ -41,7 +36,6 @@ public class Character_Manager : TaskExecutor<Character_Manager>
         temp.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = Target._data.BaseData[0].changeableData;
         tempRectTransform.anchoredPosition = Prefab_Manager._executor.Button;
         tempRectTransform.anchoredPosition -= new Vector2 (0, Prefab_Manager.Shift() + Button_Characters.Count * (150 + Prefab_Manager.Shift()));
-        Debug.Log(tempChar + " " + temp);
         GenerateCloseButton(tempChar, temp);
         tempButton.onClick.AddListener(delegate {
             OpenCharacter(tempChar);
