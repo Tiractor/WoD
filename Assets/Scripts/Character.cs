@@ -26,8 +26,10 @@ public class Character : MonoBehaviour
         BaseData();
         Attributes();
         Skills();
-        //RectTransform temp4 = Advantages().GetComponent<RectTransform>();
+        Merits();
+        LowData();
         transform.localScale = new Vector3(0.8f, 0.8f);
+        ConnectedOutput.Refresh();
     }
     private void BaseData()
     {
@@ -50,49 +52,18 @@ public class Character : MonoBehaviour
             ConnectedOutput.addElement_Skills(cur);
         }
     }
-    /*private GameObject Advantages()
+    private void Merits()
     {
-        float width = 0;
-        GameObject _Advantages = new GameObject("Advantages");
-        RectTransform _Advantages_transform = _Advantages.AddComponent<RectTransform>();
-        _Advantages_transform.SetParent(transform);
-        _Advantages_transform.anchoredPosition = Vector2.zero;
-        for (int i = 0; i < _data.Advantages.Length; ++i)
-        {
-            var cur = _data.Advantages[i];
-            GameObject temp = new GameObject(cur._name);
-            RectTransform tempRectTransform = temp.AddComponent<RectTransform>();
-            tempRectTransform.SetParent(_Advantages_transform);
-            Vector2 Shift = temp.AddComponent<Block_CheckBoxManagers>().Init(cur).Max;
-            Vector2 newPosition = i == 0 ?
-                Vector2.zero
-                : new Vector2(width + Prefab_Manager._executor.TextBox_SizeSettings.x * 2.5f, 0);
-            tempRectTransform.anchoredPosition = newPosition;
-            width += tempRectTransform.anchoredPosition.x;
-        }
-        return _Advantages;
-    }*/
-    /*private GameObject Sk1ills()
+        
+        ConnectedOutput.addElement_Merits(_data.Merits);
+    }
+    private void LowData()
     {
-        float height = 0;
-        GameObject _Skills = new GameObject("Skills");
-        RectTransform _Skills_transform = _Skills.AddComponent<RectTransform>();
-        _Skills_transform.SetParent(transform);
-        _Skills_transform.anchoredPosition = Vector2.zero;
-        for (int i = 0; i < _data.Skills.Length; ++i)
+        foreach (var cur in _data.LowData)
         {
-            var cur = _data.Skills[i];
-            GameObject temp = new GameObject(cur._name);
-            RectTransform tempRectTransform = temp.AddComponent<RectTransform>();
-            tempRectTransform.SetParent(_Skills_transform);
-            float delt = (cur._attributes.Length + 1) / 2f;
-            Vector2 Shift = temp.AddComponent<Block_CheckBoxManagers>().Init(cur).Max;
-            Vector2 newPosition = new Vector2(0, height - Prefab_Manager._executor.TextBox_SizeSettings.y * delt);
-            tempRectTransform.anchoredPosition = newPosition;
-            height -= Prefab_Manager._executor.TextBox_SizeSettings.y * delt;
+            ConnectedOutput.addElement_LowData(cur);
         }
-        return _Skills;
-    }*/
+    }
 
     [ContextMenu("Clear List")]
     public void ClearList()
@@ -121,16 +92,20 @@ public class CharacterData
     public str_Data[] BaseData;
     public GroupCounters[] Attributes;
     public GroupCounters[] Skills;
-    public GroupCounters[] Advantages;
+    public GroupCounters Merits;
     // Здоровье????
     public Stats stats;
+    public str_Data[] LowData;
+
 
     public CharacterData()
     {
+        
         Attributes = new GroupCounters[BaseNameLib.EAttributes.Length];
         for (int i = 0; i < BaseNameLib.EAttributes.Length; ++i)
         {
             Attributes[i] = new GroupCounters(BaseNameLib.ECategories[i], BaseNameLib.EAttributes[i].Length, BaseNameLib.EAttributes[i], 1);
+            Attributes[i]._isAttribute = true;
         }
         Skills = new GroupCounters[BaseNameLib.ESkills.Length];
         for (int i = 0; i < BaseNameLib.ESkills.Length; ++i)
@@ -142,6 +117,13 @@ public class CharacterData
         {
             BaseData[i] = new str_Data(BaseNameLib.EBase[i]);
         }
+        LowData = new str_Data[BaseNameLib.ELowData.Length];
+        for (int i = 0; i < BaseNameLib.ELowData.Length; ++i)
+        {
+            LowData[i] = new str_Data(BaseNameLib.ELowData[i]);
+        }
+        Merits = new GroupCounters("Преимущества");
+        Merits._isMerit = true;
     }
     public CharacterData(CharacterData Another)
     {
@@ -154,6 +136,8 @@ public class CharacterData
         Attributes = Data.Attributes;
         Skills = Data.Skills;
         BaseData = Data.BaseData;
+        Merits = Data.Merits;
+        stats = Data.stats;
         return this;
     }
 }

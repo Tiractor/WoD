@@ -236,7 +236,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Executor: {fileID: 175399361}
   CheckBox_Base: {fileID: 5387323958324244025, guid: c705461bede5c2e499ac318bb5af86a8, type: 3}
+  CheckBox_FourState: {fileID: 5387323958324244025, guid: a61ee37c1e5f6be478a98d212470fd0f, type: 3}
+  CheckBox_Square: {fileID: 5387323958324244025, guid: 79b93ba1a0c7efd4685967aa844a51e4, type: 3}
   CheckBox_Clear: {fileID: 5387323958324244025, guid: 926fa99d2c982af47b293625d22ec644, type: 3}
+  Button_AddCounter: {fileID: 5577847256651250649, guid: 9222d23cbbacb804cb50f1e7c1291c57, type: 3}
   Button_Character: {fileID: 5577847256651250649, guid: 5a351d2533f957148aff84f9e6b2ffee, type: 3}
   Button_CloseCharacter: {fileID: 5577847256651250649, guid: 39a4fdc689a97e74f82fa646496e7467, type: 3}
   Button_SettingsCharacter: {fileID: 5577847256651250649, guid: 1a99297a1327d2947a0e4554c8402834, type: 3}
@@ -252,12 +255,6 @@ MonoBehaviour:
   AnchorsIF:
   - {x: 0.75, y: 0.5}
   - {x: 0.75, y: 0.5}
-  AnchorsCounters:
-  - {x: 0.2, y: 0.5}
-  - {x: 0.2, y: 0.5}
-  AnchorsSkills:
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

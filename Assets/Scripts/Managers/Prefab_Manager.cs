@@ -4,9 +4,12 @@ public class Prefab_Manager : TaskExecutor<Prefab_Manager>
 {
     [Header("CheckBox")]
     public GameObject CheckBox_Base;
+    public GameObject CheckBox_FourState;
+    public GameObject CheckBox_Square;
     public GameObject CheckBox_Clear;
 
     [Header("Buttons")]
+    public GameObject Button_AddCounter;
     public GameObject Button_Character;
     public GameObject Button_CloseCharacter;
     public GameObject Button_SettingsCharacter;
@@ -24,8 +27,6 @@ public class Prefab_Manager : TaskExecutor<Prefab_Manager>
     [Header("Anchors")]
     public Vector2[] AnchorsText = new Vector2[2];
     public Vector2[] AnchorsIF = new Vector2[2];
-    public Vector2[] AnchorsCounters = new Vector2[2];
-    public Vector2[] AnchorsSkills = new Vector2[2];
 
 
     private static float _shift;

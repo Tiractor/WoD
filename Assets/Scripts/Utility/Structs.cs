@@ -24,9 +24,16 @@ public class Counter
 public class GroupCounters
 {
     public bool _isAttribute = false;
+    public bool _isMerit = false;
     public int _maxValue;
     public string _name;
     public Counter[] _attributes;
+    public GroupCounters(string Name)
+    {
+        _name = Name;
+        _maxValue = 5;
+        _attributes = new Counter[0];
+    }
     public GroupCounters(string Name, int CountOfCounters, string[] NamesOfCounters)
     {
         if(NamesOfCounters.Length != CountOfCounters) Debug.LogError("Count of Names != Count of Counters");
@@ -49,6 +56,17 @@ public class GroupCounters
             _attributes[i].SetValue(BaseValue);
         }
     }
+
+    public void addNewAttribute()
+    {
+        Counter[] temp = new Counter[_attributes.Length + 1];
+        for(int i = 0; i < _attributes.Length; ++i)
+        {
+            temp[i] = _attributes[i];
+        }
+        temp[_attributes.Length] = new Counter(this, "");
+        _attributes = temp;
+    }
 }
 
 public class Stats
@@ -58,12 +76,6 @@ public class Stats
     public int[] cur_Health;
     public int Will;
     public int Sanity;
-    [Header("Fight Stats")]
-    public int Size;
-    public int Speed;
-    public int Defense;
-    public int Armor;
-    public int Initiative;
     [Header("Exp")]
     public int Mark;
     public int Exp;
@@ -174,6 +186,14 @@ class BaseNameLib {
         "Ментальные",
         "Физические",
         "Социальные"
+    };
+    public static string[] ELowData = new string[]
+    {
+        "Размер",
+        "Скорость",
+        "Защита",
+        "Броня",
+        "Инициатива"
     };
 }
 

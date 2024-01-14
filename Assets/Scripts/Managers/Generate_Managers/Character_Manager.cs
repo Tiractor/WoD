@@ -32,10 +32,7 @@ public class Character_Manager : TaskExecutor<Character_Manager>
         GameObject temp = Instantiate(Prefab_Manager._executor.Button_Character, WhereButtons.transform);
         temp.name = "ButtonOfCharacter_" + (Characters.Count-1);
         Button tempButton = temp.GetComponent<Button>();
-        RectTransform tempRectTransform = temp.GetComponent<RectTransform>();
         temp.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = Target._data.BaseData[0].changeableData;
-        tempRectTransform.anchoredPosition = Prefab_Manager._executor.Button;
-        tempRectTransform.anchoredPosition -= new Vector2 (0, Prefab_Manager.Shift() + Button_Characters.Count * (150 + Prefab_Manager.Shift()));
         GenerateCloseButton(tempChar, temp);
         tempButton.onClick.AddListener(delegate {
             OpenCharacter(tempChar);

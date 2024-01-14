@@ -12,6 +12,7 @@ public class CheckBox_Manager : MonoBehaviour
         HorizontalLayoutGroup temp = gameObject.AddComponent<HorizontalLayoutGroup>(); // .spacing = 20
         temp.childControlHeight = false;
         temp.childControlWidth = false;
+        
         gameObject.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
         Generate();
     }
@@ -19,7 +20,7 @@ public class CheckBox_Manager : MonoBehaviour
     public void Generate()
     {
         Clear();
-         GenerateText();
+        if (!ConnectedData.ParentCounters._isMerit) GenerateText();
         if (!ConnectedData.ParentCounters._isAttribute) CreateIF();
         GenerateCheckBoxes();
         
@@ -97,7 +98,8 @@ public class CheckBox_Manager : MonoBehaviour
         {
             if (Value == CheckBoxes[i])
             {
-                ConnectedData.SetValue(i);
+                if(ConnectedData.ParentCounters._isAttribute) ConnectedData.SetValue(i+1);
+                else ConnectedData.SetValue(i);
                 break;
             }
         }
@@ -105,7 +107,7 @@ public class CheckBox_Manager : MonoBehaviour
         {
             Toggle temp = CheckBoxes[i];
             temp.onValueChanged.RemoveAllListeners();
-            temp.isOn = (i <= ConnectedData.curValue);
+            temp.isOn = ConnectedData.ParentCounters._isAttribute ? (i <= ConnectedData.curValue -1) : (i <= ConnectedData.curValue);
             temp.onValueChanged.AddListener(delegate
              {
                  ReSetCurrentValue(temp);

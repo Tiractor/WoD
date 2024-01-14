@@ -1,4 +1,4 @@
-using System.Collections;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,13 +11,21 @@ public class Layout_Manager : MonoBehaviour
 
     [Header("Other Traits")]
     [SerializeField] private GameObject Merits;
-    [SerializeField] private GameObject Low_Data;
+    [SerializeField] private GameObject LowData;
+    [SerializeField] private GameObject ImportantCounters;
     [SerializeField] private GameObject Conditions;
     [SerializeField] private GameObject Aspirations;
-    [SerializeField] private GameObject Counters;
+
+
     [Header("Equipment")]
     [SerializeField] private GameObject Attack;
     [SerializeField] private GameObject Equipment;
+
+    public void Refresh()
+    {
+        LayoutRebuilder.ForceRebuildLayoutImmediate(Skills.GetComponentInParent<RectTransform>());
+        LayoutRebuilder.ForceRebuildLayoutImmediate(BaseData.GetComponentInParent<RectTransform>());
+    }
     public void addElement_BaseData(str_Data Connected)
     {
         GameObject temp = new GameObject(Connected.fixedData);
@@ -41,22 +49,38 @@ public class Layout_Manager : MonoBehaviour
         tempRectTransform.sizeDelta = new Vector2(500, 250);
         temp.AddComponent<Block_CheckBoxManagers>().Init(Connected);
     }
+    public void addElement_Merits(GroupCounters Connected)
+    {
+        GameObject temp = new GameObject(Connected._name);
+        RectTransform tempRectTransform = temp.AddComponent<RectTransform>();
+        tempRectTransform.SetParent(Merits.transform);
+        tempRectTransform.sizeDelta = new Vector2(500, 250);
+        temp.AddComponent<Block_CheckBoxManagers>().Init(Connected);
+    }
+    public void addElement_LowData(str_Data Connected)
+    {
+        GameObject temp = new GameObject(Connected.fixedData);
+        RectTransform tempRectTransform = temp.AddComponent<RectTransform>();
+        tempRectTransform.SetParent(LowData.transform);
+        tempRectTransform.sizeDelta = new Vector2(500, 50);
+        temp.AddComponent<str_Data_Manager>().Init(Connected);
+    }
     [ContextMenu("Clear")]
     public void Clear()
     {
-        var children = new System.Collections.Generic.List<GameObject>();
+        var children = new List<GameObject>();
         foreach (Transform child in BaseData.transform) children.Add(child.gameObject);
         foreach (Transform child in Attributes.transform) children.Add(child.gameObject);
         foreach (Transform child in Skills.transform) children.Add(child.gameObject);
 
-        /*foreach (Transform child in Merits.transform) children.Add(child.gameObject);
-        foreach (Transform child in Low_Data.transform) children.Add(child.gameObject);
+        foreach (Transform child in Merits.transform) children.Add(child.gameObject);
+        foreach (Transform child in LowData.transform) children.Add(child.gameObject);
         foreach (Transform child in Conditions.transform) children.Add(child.gameObject);
         foreach (Transform child in Aspirations.transform) children.Add(child.gameObject);
-        foreach (Transform child in Counters.transform) children.Add(child.gameObject);
+        foreach (Transform child in ImportantCounters.transform) children.Add(child.gameObject);
 
         foreach (Transform child in Attack.transform) children.Add(child.gameObject);
-        foreach (Transform child in Equipment.transform) children.Add(child.gameObject);*/
+        foreach (Transform child in Equipment.transform) children.Add(child.gameObject);
 
         children.ForEach(child => DestroyImmediate(child));
     }

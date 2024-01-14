@@ -9,10 +9,14 @@ public class Block_CheckBoxManagers : MonoBehaviour
     public Block_CheckBoxManagers Init(GroupCounters Connect)
     {
         ConnectedData = Connect;
-        gameObject.AddComponent<VerticalLayoutGroup>().spacing = 50;
-        ContentSizeFitter temp = gameObject.AddComponent<ContentSizeFitter>();
-        temp.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-        temp.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+        VerticalLayoutGroup tempLayout = gameObject.AddComponent<VerticalLayoutGroup>();
+        tempLayout.childControlHeight = false;
+        tempLayout.childControlWidth = false;
+        tempLayout.spacing = 50;
+        if (ConnectedData._isMerit) tempLayout.childScaleWidth = true;
+        ContentSizeFitter tempFitter = gameObject.AddComponent<ContentSizeFitter>();
+        tempFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+        tempFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
         Generate();
         return this;
     }
@@ -44,14 +48,36 @@ public class Block_CheckBoxManagers : MonoBehaviour
             RectTransform tempRectTransform = temp.AddComponent<RectTransform>();
             tempRectTransform.SetParent(transform);
             tempRectTransform.sizeDelta = Prefab_Manager._executor.SizeCounters;
-            Vector2 newPosition = i == 0 ?
-                new Vector2(0, Prefab_Manager.Shift() * -2)
-                : new Vector2(0, Block[Block.Count - 1].GetComponent<RectTransform>().anchoredPosition.y - Prefab_Manager.Shift() * 2);
-            tempRectTransform.anchoredPosition = newPosition;
             CheckBox_Manager temp_Manager = temp.AddComponent<CheckBox_Manager>();
             temp_Manager.Init(ConnectedData._attributes[i]);
             Block.Add(temp_Manager);
         }
+        if (ConnectedData._isMerit) AddButton_NewCounter();
+    }
+    public void AddButton_NewCounter()
+    {
+        Button temp = Instantiate(Prefab_Manager._executor.Button_AddCounter, transform)
+            .GetComponent<Button>();
+
+        temp.onClick.AddListener
+            (delegate 
+                {
+                    AddNewCounter(temp);
+                }
+            );
+
+    }
+    public void AddNewCounter(Button objectToMove)
+    {
+        ConnectedData.addNewAttribute();
+        GameObject temp = new GameObject("New" + "_Checkbox_Manager_" + Block.Count);
+        RectTransform tempRectTransform = temp.AddComponent<RectTransform>();
+        tempRectTransform.SetParent(transform);
+        tempRectTransform.sizeDelta = Prefab_Manager._executor.SizeCounters;
+        CheckBox_Manager temp_Manager = temp.AddComponent<CheckBox_Manager>();
+        temp_Manager.Init(ConnectedData._attributes[ConnectedData._attributes.Length-1]);
+        Block.Add(temp_Manager);
+        objectToMove.transform.SetAsLastSibling();
     }
     [ContextMenu("Clear Data")]
     public void Clear()
