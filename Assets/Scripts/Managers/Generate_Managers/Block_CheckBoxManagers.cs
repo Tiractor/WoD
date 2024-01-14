@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Block_CheckBoxManagers : MonoBehaviour
 {
+    
     List<CheckBox_Manager> Block = new List<CheckBox_Manager>();
     [SerializeField] GroupCounters ConnectedData;
     public Block_CheckBoxManagers Init(GroupCounters Connect)
@@ -78,6 +79,7 @@ public class Block_CheckBoxManagers : MonoBehaviour
         temp_Manager.Init(ConnectedData._attributes[ConnectedData._attributes.Length-1]);
         Block.Add(temp_Manager);
         objectToMove.transform.SetAsLastSibling();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(tempRectTransform.parent.GetComponent<RectTransform>());
     }
     [ContextMenu("Clear Data")]
     public void Clear()

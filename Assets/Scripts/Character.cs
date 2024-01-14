@@ -28,6 +28,7 @@ public class Character : MonoBehaviour
         Skills();
         Merits();
         LowData();
+        Health();
         transform.localScale = new Vector3(0.8f, 0.8f);
         ConnectedOutput.Refresh();
     }
@@ -64,7 +65,10 @@ public class Character : MonoBehaviour
             ConnectedOutput.addElement_LowData(cur);
         }
     }
-
+    private void Health()
+    {
+            ConnectedOutput.addElement_ImportantCounters(_data.Health);
+    }
     [ContextMenu("Clear List")]
     public void ClearList()
     {
@@ -93,7 +97,7 @@ public class CharacterData
     public GroupCounters[] Attributes;
     public GroupCounters[] Skills;
     public GroupCounters Merits;
-    // Здоровье????
+    public Health Health;
     public Stats stats;
     public str_Data[] LowData;
 
@@ -124,6 +128,7 @@ public class CharacterData
         }
         Merits = new GroupCounters("Преимущества");
         Merits._isMerit = true;
+        Health = new Health("Здоровье");
     }
     public CharacterData(CharacterData Another)
     {

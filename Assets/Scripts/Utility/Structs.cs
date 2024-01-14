@@ -34,6 +34,15 @@ public class GroupCounters
         _maxValue = 5;
         _attributes = new Counter[0];
     }
+    public GroupCounters(string Name, int CountOfCounters, int MaxValue)
+    {
+        _name = Name;
+        _maxValue = MaxValue;
+        _attributes = new Counter[CountOfCounters];
+        for (int i = 0; i < CountOfCounters; ++i)
+            _attributes[i] = new Counter(this, i.ToString());
+
+    }
     public GroupCounters(string Name, int CountOfCounters, string[] NamesOfCounters)
     {
         if(NamesOfCounters.Length != CountOfCounters) Debug.LogError("Count of Names != Count of Counters");
@@ -56,7 +65,18 @@ public class GroupCounters
             _attributes[i].SetValue(BaseValue);
         }
     }
-
+    public GroupCounters(string Name, int CountOfCounters, string[] NamesOfCounters, int BaseValue, int MaxValue)
+    {
+        if (NamesOfCounters.Length != CountOfCounters) Debug.LogError("Count of Names != Count of Counters");
+        _name = Name;
+        _maxValue = MaxValue;
+        _attributes = new Counter[CountOfCounters];
+        for (int i = 0; i < CountOfCounters; ++i)
+        {
+            _attributes[i] = new Counter(this, NamesOfCounters[i]);
+            _attributes[i].SetValue(BaseValue);
+        }
+    }
     public void addNewAttribute()
     {
         Counter[] temp = new Counter[_attributes.Length + 1];
@@ -69,11 +89,36 @@ public class GroupCounters
     }
 }
 
+
+[System.Serializable]
+public class Health 
+{
+    public string _name;
+    public GroupCounters _max_Health;
+    public GroupCounters _cur_Health;
+    public Health()
+    {
+        _max_Health = new GroupCounters("Max_Health", 1, new string[] { "Max_Health" },0,12);
+        _cur_Health = new GroupCounters("Cur_Health", 12, 3);
+    }
+    public Health(string Name)
+    {
+        _name = Name;
+        _max_Health = new GroupCounters("Max_Health", 1, new string[] { "Max_Health" }, 0, 12);
+        _cur_Health = new GroupCounters("Cur_Health", 12, 3);
+    }
+    public void addNewAttribute()
+    {
+        _max_Health.addNewAttribute();
+        _cur_Health.addNewAttribute();
+    }
+}
+
+[System.Serializable]
 public class Stats
 {
     [Header("Base")]
-    public int max_Health;
-    public int[] cur_Health;
+    public Health HitPoints;
     public int Will;
     public int Sanity;
     [Header("Exp")]

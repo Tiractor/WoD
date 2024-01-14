@@ -39,7 +39,7 @@ public class CheckBox_Manager : MonoBehaviour
         temp.alignment = TMPro.TextAlignmentOptions.MidlineLeft;
         temp.enableWordWrapping = false;
         tempRectTransform.sizeDelta = Prefab_Manager._executor.TextBox_SizeSettings;
-        tempRectTransform.anchoredPosition = Vector2.zero;
+
         return temp_Text;
     }
 
@@ -48,9 +48,6 @@ public class CheckBox_Manager : MonoBehaviour
         GameObject temp = Instantiate(Prefab_Manager._executor.CheckBox_Clear, transform);
         temp.name = ConnectedData.name_spec.fixedData + "_Clear";
         RectTransform tempRectTransform = temp.GetComponent<RectTransform>();
-        Vector2 newPosition = new Vector2(Prefab_Manager._executor.TextBox_SizeSettings.x + Prefab_Manager.Shift() * 0.5f, 0);
-                
-        tempRectTransform.anchoredPosition = newPosition;
         Toggle temp_Toggle = temp.GetComponent<Toggle>();
         temp_Toggle.onValueChanged.AddListener(delegate
             {
@@ -67,10 +64,6 @@ public class CheckBox_Manager : MonoBehaviour
             GameObject temp = Instantiate(Prefab_Manager._executor.CheckBox_Base, transform);
             temp.name = ConnectedData.name_spec.fixedData + "_Checkbox_" + (CheckBoxes.Count+1);
             RectTransform tempRectTransform = temp.GetComponent<RectTransform>();
-            Vector2 newPosition = CheckBoxes.Count == 0 ?
-                new Vector2(Prefab_Manager._executor.TextBox_SizeSettings.x + Prefab_Manager.Shift()*0.5f, 0)
-                : new Vector2(CheckBoxes[CheckBoxes.Count - 1].GetComponent<RectTransform>().anchoredPosition.x + Prefab_Manager.Shift()*2f, 0);
-            tempRectTransform.anchoredPosition = newPosition;
             Toggle temp_Toggle = temp.GetComponent<Toggle>();
             
             temp_Toggle.isOn = (i < ConnectedData.curValue);

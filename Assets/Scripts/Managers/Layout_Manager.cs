@@ -65,6 +65,14 @@ public class Layout_Manager : MonoBehaviour
         tempRectTransform.sizeDelta = new Vector2(500, 50);
         temp.AddComponent<str_Data_Manager>().Init(Connected);
     }
+    public void addElement_ImportantCounters(Health Connected)
+    {
+        GameObject temp = new GameObject(Connected._name);
+        RectTransform tempRectTransform = temp.AddComponent<RectTransform>();
+        tempRectTransform.SetParent(ImportantCounters.transform);
+        tempRectTransform.sizeDelta = new Vector2(500, 50);
+        temp.AddComponent<Health_Manager>().Init(Connected);
+    }
     [ContextMenu("Clear")]
     public void Clear()
     {

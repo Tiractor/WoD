@@ -3,11 +3,11 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class StateCounter : MonoBehaviour, IPointerClickHandler
+public class FourStatesCheckBox : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Sprite[] stateSprites;
 
-    public UnityEvent<int> OnValueChange;
+    public UnityEvent<int> onValueChanged;
 
     [SerializeField] private int currentState = 0;
     [SerializeField] private Image imageComponent;
@@ -33,16 +33,22 @@ public class StateCounter : MonoBehaviour, IPointerClickHandler
             IncrementState();
         }
     }
+    public void SetState(int State)
+    {
+        currentState = (State) % stateSprites.Length;
+        imageComponent.sprite = stateSprites[currentState];
+        //onValueChanged?.Invoke(currentState);
+    }
     private void IncrementState()
     {
         currentState = (currentState + 1) % stateSprites.Length;
         imageComponent.sprite = stateSprites[currentState];
-        OnValueChange?.Invoke(currentState);
+        onValueChanged?.Invoke(currentState);
     }
     private void DecrementState()
     {
         currentState = (currentState - 1) < 0 ? stateSprites.Length - 1 : (currentState - 1) % stateSprites.Length;
         imageComponent.sprite = stateSprites[currentState];
-        OnValueChange?.Invoke(currentState);
+        onValueChanged?.Invoke(currentState);
     }
 }
