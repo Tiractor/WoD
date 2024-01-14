@@ -20,8 +20,8 @@ public class CheckBox_Manager : MonoBehaviour
     public void Generate()
     {
         Clear();
-        if (!ConnectedData.ParentCounters._isMerit) GenerateText();
-        if (!ConnectedData.ParentCounters._isAttribute) CreateIF();
+        if (!ConnectedData.ParentCounters._notNeedFixedText) GenerateText();
+        if (!ConnectedData.ParentCounters._notNeedInputField) CreateIF();
         GenerateCheckBoxes();
         
     }
@@ -58,7 +58,7 @@ public class CheckBox_Manager : MonoBehaviour
     }
     private void GenerateCheckBoxes()
     {
-        if(!ConnectedData.ParentCounters._isAttribute) ClearButton();
+        if(!ConnectedData.ParentCounters._notNeedInputField) ClearButton();
         for (int i = 0; i < ConnectedData.ParentCounters._maxValue; ++i)
         {
             GameObject temp = Instantiate(Prefab_Manager._executor.CheckBox_Base, transform);
@@ -91,7 +91,7 @@ public class CheckBox_Manager : MonoBehaviour
         {
             if (Value == CheckBoxes[i])
             {
-                if(ConnectedData.ParentCounters._isAttribute) ConnectedData.SetValue(i+1);
+                if(ConnectedData.ParentCounters._notNeedInputField) ConnectedData.SetValue(i+1);
                 else ConnectedData.SetValue(i);
                 break;
             }
@@ -100,7 +100,7 @@ public class CheckBox_Manager : MonoBehaviour
         {
             Toggle temp = CheckBoxes[i];
             temp.onValueChanged.RemoveAllListeners();
-            temp.isOn = ConnectedData.ParentCounters._isAttribute ? (i <= ConnectedData.curValue -1) : (i <= ConnectedData.curValue);
+            temp.isOn = ConnectedData.ParentCounters._notNeedInputField ? (i <= ConnectedData.curValue -1) : (i <= ConnectedData.curValue);
             temp.onValueChanged.AddListener(delegate
              {
                  ReSetCurrentValue(temp);

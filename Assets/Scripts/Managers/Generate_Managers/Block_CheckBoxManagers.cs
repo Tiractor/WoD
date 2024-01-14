@@ -14,7 +14,7 @@ public class Block_CheckBoxManagers : MonoBehaviour
         tempLayout.childControlHeight = false;
         tempLayout.childControlWidth = false;
         tempLayout.spacing = 50;
-        if (ConnectedData._isMerit) tempLayout.childScaleWidth = true;
+        if (ConnectedData._notNeedFixedText) tempLayout.childScaleWidth = true;
         ContentSizeFitter tempFitter = gameObject.AddComponent<ContentSizeFitter>();
         tempFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
         tempFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
@@ -53,7 +53,7 @@ public class Block_CheckBoxManagers : MonoBehaviour
             temp_Manager.Init(ConnectedData._attributes[i]);
             Block.Add(temp_Manager);
         }
-        if (ConnectedData._isMerit) AddButton_NewCounter();
+        if (ConnectedData._notNeedFixedText && !ConnectedData._notNeedInputField) AddButton_NewCounter();
     }
     public void AddButton_NewCounter()
     {
@@ -79,7 +79,7 @@ public class Block_CheckBoxManagers : MonoBehaviour
         temp_Manager.Init(ConnectedData._attributes[ConnectedData._attributes.Length-1]);
         Block.Add(temp_Manager);
         objectToMove.transform.SetAsLastSibling();
-        LayoutRebuilder.ForceRebuildLayoutImmediate(tempRectTransform.parent.GetComponent<RectTransform>());
+        LayoutRebuilder.ForceRebuildLayoutImmediate(objectToMove.transform.parent.GetComponent<RectTransform>());
     }
     [ContextMenu("Clear Data")]
     public void Clear()

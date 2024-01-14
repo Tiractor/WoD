@@ -28,7 +28,7 @@ public class Character : MonoBehaviour
         Skills();
         Merits();
         LowData();
-        Health();
+        ImportantCounters();
         transform.localScale = new Vector3(0.8f, 0.8f);
         ConnectedOutput.Refresh();
     }
@@ -65,9 +65,11 @@ public class Character : MonoBehaviour
             ConnectedOutput.addElement_LowData(cur);
         }
     }
-    private void Health()
+    private void ImportantCounters()
     {
-            ConnectedOutput.addElement_ImportantCounters(_data.Health);
+        ConnectedOutput.addElement_ImportantCounters(_data.Health);
+        ConnectedOutput.addElement_ImportantCounters(_data.Will);
+        ConnectedOutput.addElement_Sanity(_data.Sanity);
     }
     [ContextMenu("Clear List")]
     public void ClearList()
@@ -98,6 +100,8 @@ public class CharacterData
     public GroupCounters[] Skills;
     public GroupCounters Merits;
     public Health Health;
+    public GroupCounters Will;
+    public GroupCounters Sanity;
     public Stats stats;
     public str_Data[] LowData;
 
@@ -109,7 +113,7 @@ public class CharacterData
         for (int i = 0; i < BaseNameLib.EAttributes.Length; ++i)
         {
             Attributes[i] = new GroupCounters(BaseNameLib.ECategories[i], BaseNameLib.EAttributes[i].Length, BaseNameLib.EAttributes[i], 1);
-            Attributes[i]._isAttribute = true;
+            Attributes[i]._notNeedInputField = true;
         }
         Skills = new GroupCounters[BaseNameLib.ESkills.Length];
         for (int i = 0; i < BaseNameLib.ESkills.Length; ++i)
@@ -127,8 +131,12 @@ public class CharacterData
             LowData[i] = new str_Data(BaseNameLib.ELowData[i]);
         }
         Merits = new GroupCounters("Преимущества");
-        Merits._isMerit = true;
+        Merits._notNeedFixedText = true;
         Health = new Health("Здоровье");
+        Will = new GroupCounters("Воля",2,10);
+        Sanity = new GroupCounters("Целостность", 1, 10);
+        Sanity._notNeedFixedText = true;
+        Sanity._notNeedInputField = true;
     }
     public CharacterData(CharacterData Another)
     {

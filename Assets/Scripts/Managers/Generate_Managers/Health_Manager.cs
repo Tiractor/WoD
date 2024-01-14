@@ -12,11 +12,13 @@ public class Health_Manager : MonoBehaviour
     public void Init(Health Connect)
     {
         ConnectedData = Connect;
-        VerticalLayoutGroup temp = gameObject.AddComponent<VerticalLayoutGroup>(); // .spacing = 20
+        VerticalLayoutGroup temp = gameObject.AddComponent<VerticalLayoutGroup>(); 
         temp.childControlHeight = false;
         temp.childControlWidth = false;
-        
-        gameObject.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+        ContentSizeFitter tempFitter = gameObject.AddComponent<ContentSizeFitter>();
+        tempFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+        tempFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
         Generate();
     }
     private RectTransform GenerateHorizontalLayout(string name)
@@ -84,10 +86,10 @@ public class Health_Manager : MonoBehaviour
         if(CurHealth_Layout == null) CurHealth_Layout = GenerateHorizontalLayout("CurHealth_Layout");
         if (ConnectedData._max_Health._attributes[0].curValue+1 >= CurHealth_CheckBoxes.Count) 
         {
-            
+            int start = CurHealth_CheckBoxes.Count;
             for (int i = 0; ConnectedData._max_Health._attributes[0].curValue + 1 > CurHealth_CheckBoxes.Count; ++i)
             {
-                Counter currentCounter = CurHealth._attributes[i];
+                Counter currentCounter = CurHealth._attributes[start+i];
                 GameObject temp = Instantiate(Prefab_Manager._executor.CheckBox_FourState, CurHealth_Layout);
                 temp.name = "CurrentHealth_4State_Checkbox_" + CurHealth_CheckBoxes.Count;
                 RectTransform tempRectTransform = temp.GetComponent<RectTransform>();

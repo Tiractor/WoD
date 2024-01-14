@@ -273,6 +273,169 @@ MonoBehaviour:
       _maxValue: 5
       _name: "\u041F\u0440\u0435\u0438\u043C\u0443\u0449\u0435\u0441\u0442\u0432\u0430"
       _attributes: []
+    Health:
+      _name: "\u0417\u0434\u043E\u0440\u043E\u0432\u044C\u0435"
+      _max_Health:
+        _isAttribute: 0
+        _isMerit: 0
+        _maxValue: 12
+        _name: Max_Health
+        _attributes:
+        - name_spec:
+            fixedData: Max_Health
+            changeableData: 
+          curValue: 0
+          description: 
+      _cur_Health:
+        _isAttribute: 0
+        _isMerit: 0
+        _maxValue: 3
+        _name: Cur_Health
+        _attributes:
+        - name_spec:
+            fixedData: 0
+            changeableData: 
+          curValue: 0
+          description: 
+        - name_spec:
+            fixedData: 1
+            changeableData: 
+          curValue: 0
+          description: 
+        - name_spec:
+            fixedData: 2
+            changeableData: 
+          curValue: 0
+          description: 
+        - name_spec:
+            fixedData: 3
+            changeableData: 
+          curValue: 0
+          description: 
+        - name_spec:
+            fixedData: 4
+            changeableData: 
+          curValue: 0
+          description: 
+        - name_spec:
+            fixedData: 5
+            changeableData: 
+          curValue: 0
+          description: 
+        - name_spec:
+            fixedData: 6
+            changeableData: 
+          curValue: 0
+          description: 
+        - name_spec:
+            fixedData: 7
+            changeableData: 
+          curValue: 0
+          description: 
+        - name_spec:
+            fixedData: 8
+            changeableData: 
+          curValue: 0
+          description: 
+        - name_spec:
+            fixedData: 9
+            changeableData: 
+          curValue: 0
+          description: 
+        - name_spec:
+            fixedData: 10
+            changeableData: 
+          curValue: 0
+          description: 
+        - name_spec:
+            fixedData: 11
+            changeableData: 
+          curValue: 0
+          description: 
+    stats:
+      HitPoints:
+        _name: 
+        _max_Health:
+          _isAttribute: 0
+          _isMerit: 0
+          _maxValue: 12
+          _name: Max_Health
+          _attributes:
+          - name_spec:
+              fixedData: Max_Health
+              changeableData: 
+            curValue: 0
+            description: 
+        _cur_Health:
+          _isAttribute: 0
+          _isMerit: 0
+          _maxValue: 3
+          _name: Cur_Health
+          _attributes:
+          - name_spec:
+              fixedData: 0
+              changeableData: 
+            curValue: 0
+            description: 
+          - name_spec:
+              fixedData: 1
+              changeableData: 
+            curValue: 0
+            description: 
+          - name_spec:
+              fixedData: 2
+              changeableData: 
+            curValue: 0
+            description: 
+          - name_spec:
+              fixedData: 3
+              changeableData: 
+            curValue: 0
+            description: 
+          - name_spec:
+              fixedData: 4
+              changeableData: 
+            curValue: 0
+            description: 
+          - name_spec:
+              fixedData: 5
+              changeableData: 
+            curValue: 0
+            description: 
+          - name_spec:
+              fixedData: 6
+              changeableData: 
+            curValue: 0
+            description: 
+          - name_spec:
+              fixedData: 7
+              changeableData: 
+            curValue: 0
+            description: 
+          - name_spec:
+              fixedData: 8
+              changeableData: 
+            curValue: 0
+            description: 
+          - name_spec:
+              fixedData: 9
+              changeableData: 
+            curValue: 0
+            description: 
+          - name_spec:
+              fixedData: 10
+              changeableData: 
+            curValue: 0
+            description: 
+          - name_spec:
+              fixedData: 11
+              changeableData: 
+            curValue: 0
+            description: 
+      Will: 0
+      Sanity: 0
+      Mark: 0
+      Exp: 0
     LowData:
     - fixedData: "\u0420\u0430\u0437\u043C\u0435\u0440"
       changeableData: 
@@ -1570,7 +1733,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 50
+  m_Spacing: 25
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0

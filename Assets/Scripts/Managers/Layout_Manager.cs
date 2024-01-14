@@ -24,7 +24,9 @@ public class Layout_Manager : MonoBehaviour
     public void Refresh()
     {
         LayoutRebuilder.ForceRebuildLayoutImmediate(Skills.GetComponentInParent<RectTransform>());
+        
         LayoutRebuilder.ForceRebuildLayoutImmediate(BaseData.GetComponentInParent<RectTransform>());
+        LayoutRebuilder.ForceRebuildLayoutImmediate(Skills.transform.parent.GetComponentInParent<RectTransform>());
     }
     public void addElement_BaseData(str_Data Connected)
     {
@@ -72,6 +74,22 @@ public class Layout_Manager : MonoBehaviour
         tempRectTransform.SetParent(ImportantCounters.transform);
         tempRectTransform.sizeDelta = new Vector2(500, 50);
         temp.AddComponent<Health_Manager>().Init(Connected);
+    }
+    public void addElement_ImportantCounters(GroupCounters Connected)
+    {
+        GameObject temp = new GameObject(Connected._name);
+        RectTransform tempRectTransform = temp.AddComponent<RectTransform>();
+        tempRectTransform.SetParent(ImportantCounters.transform);
+        tempRectTransform.sizeDelta = new Vector2(500, 50);
+        temp.AddComponent<Will_Manager>().Init(Connected);
+    }
+    public void addElement_Sanity(GroupCounters Connected)
+    {
+        GameObject temp = new GameObject(Connected._name);
+        RectTransform tempRectTransform = temp.AddComponent<RectTransform>();
+        tempRectTransform.SetParent(ImportantCounters.transform);
+        tempRectTransform.sizeDelta = new Vector2(500, 50);
+        temp.AddComponent<Block_CheckBoxManagers>().Init(Connected);
     }
     [ContextMenu("Clear")]
     public void Clear()

@@ -26,6 +26,15 @@ public class Character_Manager : TaskExecutor<Character_Manager>
         
         return tempChar;
     }
+    public void CreateCharacterVoid()
+    {
+        GameObject temp = Instantiate(Prefab_Manager._executor.CharacterBase, WhereInst.transform);
+        temp.name = "Character_" + Characters.Count;
+        Character tempChar = temp.GetComponent<Character>();
+        Characters.Add(tempChar);
+        OpenCharacter(tempChar);
+        tempChar.ConnectedButton = GenerateButton(tempChar);
+    }
     private GameObject GenerateButton(Character Target)
     {
         Character tempChar = Target;

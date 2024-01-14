@@ -23,8 +23,8 @@ public class Counter
 [System.Serializable]
 public class GroupCounters
 {
-    public bool _isAttribute = false;
-    public bool _isMerit = false;
+    public bool _notNeedInputField = false;
+    public bool _notNeedFixedText = false;
     public int _maxValue;
     public string _name;
     public Counter[] _attributes;
@@ -117,10 +117,6 @@ public class Health
 [System.Serializable]
 public class Stats
 {
-    [Header("Base")]
-    public Health HitPoints;
-    public int Will;
-    public int Sanity;
     [Header("Exp")]
     public int Mark;
     public int Exp;
