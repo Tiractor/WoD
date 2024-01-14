@@ -64,6 +64,7 @@ public class Block_CheckBoxManagers : MonoBehaviour
             (delegate 
                 {
                     AddNewCounter(temp);
+                    RebuildLayout._executor.Rebuild();
                 }
             );
 

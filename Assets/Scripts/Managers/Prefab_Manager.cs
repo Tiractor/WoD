@@ -22,6 +22,7 @@ public class Prefab_Manager : TaskExecutor<Prefab_Manager>
 
     [Header("Size Settings")]
     public Vector2 TextBox_SizeSettings;
+    public Vector2 TableCellSize_SizeSettings;
     public Vector2 Button;
     public Vector2 SizeCounters;
 

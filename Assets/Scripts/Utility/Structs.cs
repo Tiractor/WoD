@@ -89,8 +89,64 @@ public class GroupCounters
         _attributes = temp;
     }
 }
-
-
+[System.Serializable]
+public class Attack
+{
+    public string Name;
+    public string Dmg;
+    public string Range;
+    public string Clip;
+    public string Init;
+    public string Str;
+    public string Size;
+    public void SetData(Attacks_UI Data)
+    {
+        Name = Data.Name.text;
+        Dmg = Data.Dmg.text;
+        Range = Data.Range.text;
+        Clip = Data.Clip.text;
+        Init = Data.Init.text;
+        Str = Data.Str.text;
+        Size = Data.Size.text;
+    }
+}
+[System.Serializable]
+public class Equipment
+{
+    public string Name;
+    public string Durability;
+    public string Structure;
+    public string Size;
+    public string Cost;
+    public void SetData(Equipments_UI Data)
+    {
+        Name = Data.Name.text;
+        Durability = Data.Durability.text;
+        Structure = Data.Structure.text;
+        Size = Data.Size.text;
+        Cost = Data.Cost.text;
+    }
+}
+[System.Serializable]
+public class Datas<T> where T : new()
+{
+    public T[] _data;
+    public Datas()
+    {
+        _data = new T[0];
+    }
+    public void AddNewElement()
+    {
+        Debug.Log(_data.GetType() + " " + _data.Length);
+        T[] temp = new T[_data.Length + 1];
+        for (int i = 0; i < _data.Length; ++i)
+        {
+            temp[i] = _data[i];
+        }
+        temp[_data.Length] = new T();
+        _data = temp;
+    }
+}
 [System.Serializable]
 public class Health 
 {
@@ -118,9 +174,15 @@ public class Health
 [System.Serializable]
 public class Expirience
 {
-    [Header("Exp")]
-    public int Beats;
-    public int Exp;
+    public GroupCounters Beats;
+    public str_Data Exp;
+    public Expirience()
+    {
+        Beats = new GroupCounters(BaseNameLib.EOtherTraits[6], 1, 5);
+        Beats._notNeedFixedText = true;
+        Beats._notNeedInputField = true;
+        Exp = new str_Data(BaseNameLib.EOtherTraits[7]);
+    }
 }
 
 [System.Serializable]
@@ -244,7 +306,28 @@ class BaseNameLib {
         "Воля",
         "Целостность",
         "Состояния",
-        "Стремления"
+        "Стремления",
+        "Вехи",
+        "Опыт"
+    };
+    public static string[] EAttack = new string[]
+    {
+        "Атака",
+        "Урон",
+        "Дистанция",
+        "Магазин",
+        "Инициатива",
+        "Сила",
+        "Размер",
+        
+    };
+    public static string[] EEquipment = new string[]
+    {
+        "Экипировка",
+        "Прочность",
+        "Структура",
+        "Размер",
+        "Цена",
     };
 }
 

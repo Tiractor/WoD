@@ -30,6 +30,7 @@ public class Character : MonoBehaviour
         LowData();
         ImportantCounters();
         Textes();
+        Equip();
         transform.localScale = new Vector3(0.8f, 0.8f);
         ConnectedOutput.Refresh();
     }
@@ -65,6 +66,7 @@ public class Character : MonoBehaviour
         {
             ConnectedOutput.addElement_LowData(cur);
         }
+        ConnectedOutput.addElement_Expirirnce(_data.Exp);
     }
     private void ImportantCounters()
     {
@@ -76,6 +78,10 @@ public class Character : MonoBehaviour
     {
         ConnectedOutput.addElement_Conditions(_data.Conditions);
         ConnectedOutput.addElement_Aspirations(_data.Aspirations);
+    }
+    private void Equip()
+    {
+        ConnectedOutput.addElement_Equipment(_data.Attacks, _data.Equipments);
     }
     [ContextMenu("Clear List")]
     public void ClearList()
@@ -112,7 +118,8 @@ public class CharacterData
     public GroupCounters Aspirations;
     public Expirience Exp;
     public str_Data[] LowData;
-
+    public Datas<Attack> Attacks;
+    public Datas<Equipment> Equipments;
 
     public CharacterData()
     {
@@ -151,6 +158,9 @@ public class CharacterData
         Aspirations = new GroupCounters(BaseNameLib.EOtherTraits[5], 1, 10);
         Aspirations._notNeedFixedText = true;
         Aspirations._notNeedCheckBoxes = true;
+        Exp = new Expirience();
+        Attacks = new Datas<Attack>();
+        Equipments = new Datas<Equipment>();
     }
     public CharacterData(CharacterData Another)
     {

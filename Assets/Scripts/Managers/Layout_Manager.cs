@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Layout_Manager : MonoBehaviour
 {
+    public RebuildLayout Rebuild;
     [Header("Base Elements")]
     [SerializeField] private GameObject BaseData;
     [SerializeField] private GameObject Attributes;
@@ -27,6 +28,7 @@ public class Layout_Manager : MonoBehaviour
         
         LayoutRebuilder.ForceRebuildLayoutImmediate(BaseData.GetComponentInParent<RectTransform>());
         LayoutRebuilder.ForceRebuildLayoutImmediate(Skills.transform.parent.GetComponentInParent<RectTransform>());
+        Rebuild.ForcedDenote();
     }
     public void addElement_BaseData(str_Data Connected)
     {
@@ -107,6 +109,40 @@ public class Layout_Manager : MonoBehaviour
         tempRectTransform.SetParent(Aspirations.transform);
         tempRectTransform.sizeDelta = new Vector2(500, 50);
         temp.AddComponent<Block_CheckBoxManagers>().Init(Connected);
+    }
+    public void addElement_Expirirnce(Expirience Connected)
+    {
+        GameObject temp;
+        RectTransform tempRectTransform;
+
+        temp = new GameObject(Connected.Beats._name);
+        tempRectTransform = temp.AddComponent<RectTransform>();
+        tempRectTransform.SetParent(LowData.transform);
+        tempRectTransform.sizeDelta = new Vector2(500, 50);
+        temp.AddComponent<Block_CheckBoxManagers>().Init(Connected.Beats);
+
+        temp = new GameObject(Connected.Exp.fixedData);
+        tempRectTransform = temp.AddComponent<RectTransform>();
+        tempRectTransform.SetParent(LowData.transform);
+        tempRectTransform.sizeDelta = new Vector2(500, 50);
+        temp.AddComponent<str_Data_Manager>().Init(Connected.Exp);
+    }
+    public void addElement_Equipment(Datas<Attack> Attacks, Datas<Equipment> Equipments)
+    {
+        GameObject temp;
+        RectTransform tempRectTransform;
+
+        temp = new GameObject("Attacks");
+        tempRectTransform = temp.AddComponent<RectTransform>();
+        tempRectTransform.SetParent(Attack.transform);
+        tempRectTransform.sizeDelta = new Vector2(500, 50);
+        temp.AddComponent<Datas_Manager>().Init(Attacks);
+
+        temp = new GameObject("Equipments");
+        tempRectTransform = temp.AddComponent<RectTransform>();
+        tempRectTransform.SetParent(Equipment.transform);
+        tempRectTransform.sizeDelta = new Vector2(500, 50);
+        temp.AddComponent<Datas_Manager>().Init(Equipments);
     }
     [ContextMenu("Clear")]
     public void Clear()
