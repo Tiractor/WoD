@@ -25,6 +25,7 @@ public class GroupCounters
 {
     public bool _notNeedInputField = false;
     public bool _notNeedFixedText = false;
+    public bool _notNeedCheckBoxes = false;
     public int _maxValue;
     public string _name;
     public Counter[] _attributes;
@@ -115,10 +116,10 @@ public class Health
 }
 
 [System.Serializable]
-public class Stats
+public class Expirience
 {
     [Header("Exp")]
-    public int Mark;
+    public int Beats;
     public int Exp;
 }
 
@@ -235,6 +236,15 @@ class BaseNameLib {
         "Защита",
         "Броня",
         "Инициатива"
+    };
+    public static string[] EOtherTraits = new string[]
+    {
+        "Преимущества",
+        "Здоровье",
+        "Воля",
+        "Целостность",
+        "Состояния",
+        "Стремления"
     };
 }
 

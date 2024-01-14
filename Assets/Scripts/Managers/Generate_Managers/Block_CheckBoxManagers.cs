@@ -75,6 +75,7 @@ public class Block_CheckBoxManagers : MonoBehaviour
         RectTransform tempRectTransform = temp.AddComponent<RectTransform>();
         tempRectTransform.SetParent(transform);
         tempRectTransform.sizeDelta = Prefab_Manager._executor.SizeCounters;
+        tempRectTransform.localScale = Vector3.one;
         CheckBox_Manager temp_Manager = temp.AddComponent<CheckBox_Manager>();
         temp_Manager.Init(ConnectedData._attributes[ConnectedData._attributes.Length-1]);
         Block.Add(temp_Manager);

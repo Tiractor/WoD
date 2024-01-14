@@ -244,6 +244,7 @@ MonoBehaviour:
   Button_CloseCharacter: {fileID: 5577847256651250649, guid: 39a4fdc689a97e74f82fa646496e7467, type: 3}
   Button_SettingsCharacter: {fileID: 5577847256651250649, guid: 1a99297a1327d2947a0e4554c8402834, type: 3}
   InputField: {fileID: 7747438709402670410, guid: d68ef0725bf4dd046830cdc740725202, type: 3}
+  InputField_Special: {fileID: 7747438709402670410, guid: c4f2b319659476448b7248fdcae708c1, type: 3}
   CharacterBase: {fileID: 232786990498456189, guid: de0e8faab933c8646ad0f01a009f84cb, type: 3}
   Font: {fileID: 11400000, guid: 170c60d8830879144808c10fb0d78c90, type: 2}
   TextBox_SizeSettings: {x: 250, y: 50}

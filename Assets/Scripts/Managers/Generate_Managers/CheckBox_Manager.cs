@@ -22,7 +22,7 @@ public class CheckBox_Manager : MonoBehaviour
         Clear();
         if (!ConnectedData.ParentCounters._notNeedFixedText) GenerateText();
         if (!ConnectedData.ParentCounters._notNeedInputField) CreateIF();
-        GenerateCheckBoxes();
+        if(!ConnectedData.ParentCounters._notNeedCheckBoxes) GenerateCheckBoxes();
         
     }
 
@@ -112,12 +112,13 @@ public class CheckBox_Manager : MonoBehaviour
 
     private void CreateIF()
     {
-        GameObject newObject = Instantiate(Prefab_Manager._executor.InputField, transform);
+        
+        GameObject newObject = Instantiate(ConnectedData.ParentCounters._notNeedCheckBoxes ? Prefab_Manager._executor.InputField_Special : Prefab_Manager._executor.InputField, transform);
         newObject.name = ConnectedData.name_spec.fixedData + "_InputField";
         TMPro.TMP_InputField temp_IF = newObject.GetComponent<TMPro.TMP_InputField>();
         RectTransform newObjectRect = newObject.GetComponent<RectTransform>();
         newObjectRect.localScale = Vector3.one;
-        newObjectRect.sizeDelta = new Vector2(150,40);
+        if(!ConnectedData.ParentCounters._notNeedCheckBoxes) newObjectRect.sizeDelta = new Vector2(150,40);
 
         temp_IF.onValueChanged.AddListener(delegate
             {

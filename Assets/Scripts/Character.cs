@@ -29,6 +29,7 @@ public class Character : MonoBehaviour
         Merits();
         LowData();
         ImportantCounters();
+        Textes();
         transform.localScale = new Vector3(0.8f, 0.8f);
         ConnectedOutput.Refresh();
     }
@@ -71,6 +72,11 @@ public class Character : MonoBehaviour
         ConnectedOutput.addElement_ImportantCounters(_data.Will);
         ConnectedOutput.addElement_Sanity(_data.Sanity);
     }
+    private void Textes()
+    {
+        ConnectedOutput.addElement_Conditions(_data.Conditions);
+        ConnectedOutput.addElement_Aspirations(_data.Aspirations);
+    }
     [ContextMenu("Clear List")]
     public void ClearList()
     {
@@ -102,7 +108,9 @@ public class CharacterData
     public Health Health;
     public GroupCounters Will;
     public GroupCounters Sanity;
-    public Stats stats;
+    public GroupCounters Conditions;
+    public GroupCounters Aspirations;
+    public Expirience Exp;
     public str_Data[] LowData;
 
 
@@ -130,13 +138,19 @@ public class CharacterData
         {
             LowData[i] = new str_Data(BaseNameLib.ELowData[i]);
         }
-        Merits = new GroupCounters("Преимущества");
+        Merits = new GroupCounters(BaseNameLib.EOtherTraits[0]);
         Merits._notNeedFixedText = true;
-        Health = new Health("Здоровье");
-        Will = new GroupCounters("Воля",2,10);
-        Sanity = new GroupCounters("Целостность", 1, 10);
+        Health = new Health(BaseNameLib.EOtherTraits[1]);
+        Will = new GroupCounters(BaseNameLib.EOtherTraits[2], 2,10);
+        Sanity = new GroupCounters(BaseNameLib.EOtherTraits[3], 1, 10);
         Sanity._notNeedFixedText = true;
         Sanity._notNeedInputField = true;
+        Conditions = new GroupCounters(BaseNameLib.EOtherTraits[4], 1, 10);
+        Conditions._notNeedFixedText = true;
+        Conditions._notNeedCheckBoxes = true;
+        Aspirations = new GroupCounters(BaseNameLib.EOtherTraits[5], 1, 10);
+        Aspirations._notNeedFixedText = true;
+        Aspirations._notNeedCheckBoxes = true;
     }
     public CharacterData(CharacterData Another)
     {
@@ -150,7 +164,12 @@ public class CharacterData
         Skills = Data.Skills;
         BaseData = Data.BaseData;
         Merits = Data.Merits;
-        stats = Data.stats;
+        Will = Data.Will;
+        Exp = Data.Exp;
+        Health = Data.Health;
+        Sanity = Data.Sanity;
+        LowData = Data.LowData;
+
         return this;
     }
 }

@@ -91,6 +91,23 @@ public class Layout_Manager : MonoBehaviour
         tempRectTransform.sizeDelta = new Vector2(500, 50);
         temp.AddComponent<Block_CheckBoxManagers>().Init(Connected);
     }
+
+    public void addElement_Conditions(GroupCounters Connected)
+    {
+        GameObject temp = new GameObject(Connected._name);
+        RectTransform tempRectTransform = temp.AddComponent<RectTransform>();
+        tempRectTransform.SetParent(Conditions.transform);
+        tempRectTransform.sizeDelta = new Vector2(500, 50);
+        temp.AddComponent<Block_CheckBoxManagers>().Init(Connected);
+    }
+    public void addElement_Aspirations(GroupCounters Connected)
+    {
+        GameObject temp = new GameObject(Connected._name);
+        RectTransform tempRectTransform = temp.AddComponent<RectTransform>();
+        tempRectTransform.SetParent(Aspirations.transform);
+        tempRectTransform.sizeDelta = new Vector2(500, 50);
+        temp.AddComponent<Block_CheckBoxManagers>().Init(Connected);
+    }
     [ContextMenu("Clear")]
     public void Clear()
     {

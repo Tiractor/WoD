@@ -16,6 +16,7 @@ public class Prefab_Manager : TaskExecutor<Prefab_Manager>
 
     [Header("Other")]
     public GameObject InputField;
+    public GameObject InputField_Special;
     public GameObject CharacterBase;
     public TMPro.TMP_FontAsset Font;
 
