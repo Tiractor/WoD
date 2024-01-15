@@ -84,8 +84,9 @@ public class Connector : TaskExecutor<Connector>
     private static string Request(string Json, string TargetLink)
     {
         WWWForm form = new WWWForm();
-        Debug.Log(Json);
+        
         string LinkSend = link + TargetLink;
+        Debug.Log(Json + " - sended to " + LinkSend);
         form.AddField("hash", CalculateSHA256(Json));
         form.AddField("data_to_send", Json);
         using (UnityWebRequest www = UnityWebRequest.Post(LinkSend, form))
@@ -100,7 +101,7 @@ public class Connector : TaskExecutor<Connector>
             }
             else
             {
-                Debug.Log("Server response: " + www.downloadHandler.text);
+                Debug.Log(TargetLink + " Server response: " + www.downloadHandler.text);
                 ServerResponce temp = JsonUtility.FromJson<ServerResponce>(www.downloadHandler.text);
                 Debug.Log(temp.result);
                 if (temp.result == "error")
@@ -113,70 +114,19 @@ public class Connector : TaskExecutor<Connector>
         }
     }
 
-
     public static bool Request_Reg(Authorization_Data Data)
     {
-        WWWForm form = new WWWForm();
         string Json = JsonUtility.ToJson(Data);
-        Debug.Log(Json);
-        string LinkSend = link + "Registration.php";
-        Debug.Log(LinkSend);
-        form.AddField("hash", CalculateSHA256(Json));
-        form.AddField("data_to_send", Json);
-        using (UnityWebRequest www = UnityWebRequest.Post(LinkSend, form))
-        {
-            www.SendWebRequest();
-            float startTime = Time.time;
-            while (!www.isDone && Time.time - startTime < 2f) { }
-            if (www.result != UnityWebRequest.Result.Success && www.isDone)
-            {
-                ErrorProcessor(www.error);
-                return false;
-            }
-            else
-            {
-                Debug.Log("Server response: " + www.downloadHandler.text);
-                ServerResponce temp = JsonUtility.FromJson<ServerResponce>(www.downloadHandler.text);
-                if (temp.result == "error")
-                {
-                    ErrorProcessor(temp.response);
-                    return false;
-                }
-                else return true;
-            }
-        }
+        string Target = "Registration.php";
+        string res = Request(Json, Target);
+        return res != "";
     }
     public static bool Request_Auth(Authorization_Data Data)
     {
-        WWWForm form = new WWWForm();
         string Json = JsonUtility.ToJson(Data);
-        Debug.Log(Json);
-        string LinkSend = link + "Authorization.php";
-        Debug.Log(LinkSend);
-        form.AddField("hash", CalculateSHA256(Json));
-        form.AddField("data_to_send", Json);
-        using (UnityWebRequest www = UnityWebRequest.Post(LinkSend, form))
-        {
-            www.SendWebRequest();
-            float startTime = Time.time;
-            while (!www.isDone && Time.time - startTime < 2f) { }
-            if (www.result != UnityWebRequest.Result.Success && www.isDone)
-            {
-                ErrorProcessor(www.error);
-                return false;
-            }
-            else
-            {
-                Debug.Log("Server response: " + www.downloadHandler.text);
-                ServerResponce temp = JsonUtility.FromJson<ServerResponce>(www.downloadHandler.text);
-                if (temp.result == "error")
-                {
-                    ErrorProcessor(temp.response);
-                    return false;
-                }
-                else return true;
-            }
-        }
+        string Target = "Authorization.php";
+        string res = Request(Json, Target);
+        return res != "";
     }
 
     public static bool Request_UploadCharacter(UploadCharacterData Data)
@@ -205,15 +155,12 @@ public class Connector : TaskExecutor<Connector>
 
     public static bool Request_CreateGroup(InitGroup Data)
     {
-        Debug.Log("Start Creating");
         string Json = JsonUtility.ToJson(Data);
         string Target = "CreateGroup.php";
         string res = Request(Json, Target);
-        Debug.Log(res);
-        Debug.Log("End Creating");
         return res != null;
     }
-    public static string Request_GroupCharacters(RequestData Data)
+    public static string Request_GroupCharacters(GroupCharacterRequest Data)
     {
         string Json = JsonUtility.ToJson(Data);
         string Target = "GroupCharacters.php";
@@ -225,16 +172,21 @@ public class Connector : TaskExecutor<Connector>
         string Json = JsonUtility.ToJson(Data);
         string Target = "JoinGroup.php";
         string res = Request(Json, Target);
-        Debug.Log(res);
         return res != null;
     }
-    public static bool Request_UserGroups(RequestData Data)
+    public static string Request_UserGroups(RequestData Data)
     {
         string Json = JsonUtility.ToJson(Data);
         string Target = "UserGroups.php";
         string res = Request(Json, Target);
-        Debug.Log(res);
-        return res != null;
+        return res;
+    }
+    public static string Request_JoinCharacter(CharacterJoinData Data)
+    {
+        string Json = JsonUtility.ToJson(Data);
+        string Target = "JoinCharacter.php";
+        string res = Request(Json, Target);
+        return res;
     }
 }
 

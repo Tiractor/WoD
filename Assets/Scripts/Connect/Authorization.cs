@@ -33,21 +33,27 @@ public class Authorization : TaskExecutor<Authorization>
         {
             temp_Data = PlayerPrefs.GetString("UserData");
             UserData = JsonUtility.FromJson<Authorization_Data>(temp_Data);
-            Connector.Request_Auth(UserData);
+            if (Connector.Request_Auth(UserData)) SceneManager.LoadScene("Core");
         }
     }
     public void TryAuth()
     {
         UserData.Login = AuthLogin.text;
         UserData.Password = AuthPassword.text;
-        if(Connector.Request_Auth(UserData)) SceneManager.LoadScene("Core");
+        if (Connector.Request_Auth(UserData))
+        {
+            SceneManager.LoadScene("Core");
+        }
     }
     public void TryReg()
     {
         
         UserData.Login = RegLogin.text;
         UserData.Password = RegPassword.text;
-        if(Connector.Request_Reg(UserData)) SceneManager.LoadScene("Core");
+        if (Connector.Request_Reg(UserData))
+        {
+            SceneManager.LoadScene("Core");
+        }
     }
     public void Ignore()
     {

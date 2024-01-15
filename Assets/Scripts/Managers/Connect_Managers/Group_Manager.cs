@@ -11,17 +11,11 @@ public class ConnectGroup
     public string Code;
     public string Login;
 }
-[System.Serializable]
-public class Group_Data
-{
-    public string GroupName;
-    public string idUserGroup;
-    public string ConnectCode;
-}
-
 public class Group_Manager : TaskExecutor<Group_Manager>
 {
-    [SerializeField] private Group_Data[] Groups;
+    [SerializeField] private GameObject WhereInst;
+    public GameObject WhereChar;
+    public GroupChooseData CurrentGroup;
     private void Awake()
     {
         Denote();
@@ -31,22 +25,33 @@ public class Group_Manager : TaskExecutor<Group_Manager>
         InitGroup Group = new InitGroup();
         Group.Name = name.text;
         Group.Login = Authorization._executor.UserData.Login;
-        Debug.Log(JsonUtility.ToJson(Group));
         Connector.Request_CreateGroup(Group);
     }
     public void UserGroups()
     {
-        RequestData Group = new RequestData();
-        Group.Login = Authorization._executor.UserData.Login;
-        Debug.Log(JsonUtility.ToJson(Group));
-        Connector.Request_UserGroups(Group);
+        RequestData data = new RequestData();
+        data.Login = Authorization._executor.UserData.Login;
+        string temp = Connector.Request_UserGroups(data);
+        GroupChooseDataArray chooseDataArray = JsonUtility.FromJson<GroupChooseDataArray>("{\"characters\":" + temp + "}");
+
+        if (chooseDataArray.characters != null)
+        {
+            foreach (var chooseData in chooseDataArray.characters)
+            {
+                Group_Choose characterChoose = Instantiate(Prefab_Manager._executor.Button_ChooseGroup, WhereInst.transform).GetComponent<Group_Choose>();
+                characterChoose.Init(chooseData);
+            }
+        }
+        else
+        {
+            Debug.LogError("Ошибка: массив characters не удалось десериализовать или temp не является валидным JSON.");
+        }
     }
     public void TryJoin(TMPro.TMP_InputField code)
     {
         ConnectGroup Group = new ConnectGroup();
         Group.Code = code.text;
         Group.Login = Authorization._executor.UserData.Login;
-        Debug.Log(JsonUtility.ToJson(Group));
         Connector.Request_JoinGroup(Group);
     }
 

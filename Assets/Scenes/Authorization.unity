@@ -3798,10 +3798,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 739748785}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000061035, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -0.000030517578, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1346389192
 MonoBehaviour:
@@ -4013,7 +4013,7 @@ PrefabInstance:
       objectReference: {fileID: 1880743219}
     - target: {fileID: 931595961945147241, guid: 5c5d1665819903e4f9a28886e07ac0b8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1262431148772329418, guid: 5c5d1665819903e4f9a28886e07ac0b8, type: 3}
       propertyPath: Error
@@ -4126,6 +4126,10 @@ PrefabInstance:
     - target: {fileID: 8167086460454601497, guid: 5c5d1665819903e4f9a28886e07ac0b8, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -110
+      objectReference: {fileID: 0}
+    - target: {fileID: 8424074166285492511, guid: 5c5d1665819903e4f9a28886e07ac0b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -5314,7 +5318,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2041307945}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Group_Manager, Assembly-CSharp
         m_MethodName: test
         m_Mode: 1
@@ -5951,17 +5955,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1955922261}
   m_CullTransparentMesh: 1
---- !u!114 &2041307945 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8601383586140864826, guid: 5c5d1665819903e4f9a28886e07ac0b8, type: 3}
-  m_PrefabInstance: {fileID: 1408498965}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f95276a147e93d4eb91835933663d1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2059991519
 GameObject:
   m_ObjectHideFlags: 0

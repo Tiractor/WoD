@@ -365,4 +365,12 @@ public static class Utility
         // Default return value, in case no RectTransforms are found
         return Vector2.zero;
     }
+
+    public static void CopyToClipboard(string text)
+    {
+        TextEditor te = new TextEditor();
+        te.text = text;
+        te.SelectAll();
+        te.Copy();
+    }
 }

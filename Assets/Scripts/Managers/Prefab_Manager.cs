@@ -14,6 +14,8 @@ public class Prefab_Manager : TaskExecutor<Prefab_Manager>
     public GameObject Button_CloseCharacter;
     public GameObject Button_SettingsCharacter;
     public GameObject Button_ChooseCharacter;
+    public GameObject Button_ChooseGroup;
+    public GameObject Button_JoinCharacter;
 
     [Header("Other")]
     public GameObject InputField;

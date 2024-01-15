@@ -18,6 +18,10 @@ public class Character_Choose : MonoBehaviour
     {
         Char_Manager.LoadChar(Data);
     }
+    public void InitJoin()
+    {
+        Char_Manager.JoinChar(Data);
+    }
 }
 
 [System.Serializable]
@@ -30,4 +34,16 @@ public class ChooseData
 {
     public string CharacterName;
     public string idPlayerCharacter;
+}
+
+[System.Serializable]
+public class CharacterJoinData
+{
+    public string Login;
+    public string idPlayerCharacter;
+    public string idUserGroup;
+    public CharacterJoinData(ChooseData Value)
+    {
+        idPlayerCharacter = Value.idPlayerCharacter;
+    }
 }

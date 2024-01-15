@@ -1,33 +1,48 @@
 using UnityEngine;
 
-
-
 [System.Serializable]
 public class Group_Choose : MonoBehaviour
 {
     [SerializeField] TMPro.TextMeshProUGUI Name;
-    [SerializeField] ChooseData Data;
-    public bool FromServer;
-    public void Init(ChooseData Target, bool _FromServer )
+    [SerializeField] TMPro.TextMeshProUGUI Code;
+    [SerializeField] GroupChooseData Data;
+    public void Init(GroupChooseData Target)
     {
         Data = Target;
-        FromServer = _FromServer;
-        Name.text = Target.CharacterName;
+        Name.text = Target.GroupName;
+        Code.text = Target.ConnectCode;
+    }
+    public void CopyCode()
+    {
+        Utility.CopyToClipboard(Data.ConnectCode);
     }
     public void InitLoad()
     {
-        Char_Manager.LoadChar(Data);
+        Group_Manager._executor.CurrentGroup = Data;
+        GroupCharacterRequest data = new GroupCharacterRequest(Data);
+        Char_Manager._executor.GroupCharactersServer(data);
     }
 }
 
 [System.Serializable]
 public class GroupChooseDataArray
 {
-    public ChooseData[] characters;
+    public GroupChooseData[] characters;
 }
 [System.Serializable]
 public class GroupChooseData
 {
-    public string CharacterName;
-    public string idPlayerCharacter;
+    public string GroupName;
+    public string idUserGroup;
+    public string ConnectCode;
+}
+
+[System.Serializable]
+public class GroupCharacterRequest
+{
+    public string idUserGroup;
+    public GroupCharacterRequest(GroupChooseData Value)
+    {
+        idUserGroup = Value.idUserGroup;
+    }
 }
