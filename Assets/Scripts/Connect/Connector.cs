@@ -3,9 +3,9 @@ using UnityEngine;
 using System.Security.Cryptography;
 using System.Text;
 using System;
-
+using System.Collections;
 [System.Serializable]
-public struct ServerResponce 
+public struct ServerResponse 
 {
     public string result;
     public string response;
@@ -102,7 +102,7 @@ public class Connector : TaskExecutor<Connector>
             else
             {
                 Debug.Log(TargetLink + " Server response: " + www.downloadHandler.text);
-                ServerResponce temp = JsonUtility.FromJson<ServerResponce>(www.downloadHandler.text);
+                ServerResponse temp = JsonUtility.FromJson<ServerResponse>(www.downloadHandler.text);
                 Debug.Log(temp.result);
                 if (temp.result == "error")
                 {
@@ -113,7 +113,40 @@ public class Connector : TaskExecutor<Connector>
             }
         }
     }
+    private static IEnumerator RequestCoroutine(string json, string targetLink, Action<string> callback)
+    {
+        WWWForm form = new WWWForm();
 
+        string linkSend = link + targetLink;
+        Debug.Log(json + " - sended to " + linkSend);
+        form.AddField("hash", CalculateSHA256(json));
+        form.AddField("data_to_send", json);
+        using (UnityWebRequest www = UnityWebRequest.Post(linkSend, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                ErrorProcessor(www.error);
+                callback?.Invoke(null);
+            }
+            else
+            {
+                Debug.Log(targetLink + " Server response: " + www.downloadHandler.text);
+                ServerResponse temp = JsonUtility.FromJson<ServerResponse>(www.downloadHandler.text);
+                Debug.Log(temp.result);
+                if (temp.result == "error")
+                {
+                    ErrorProcessor(temp.response);
+                    callback?.Invoke(null);
+                }
+                else
+                {
+                    callback?.Invoke(temp.response);
+                }
+            }
+        }
+    }
     public static bool Request_Reg(Authorization_Data Data)
     {
         string Json = JsonUtility.ToJson(Data);
@@ -121,14 +154,20 @@ public class Connector : TaskExecutor<Connector>
         string res = Request(Json, Target);
         return res != "";
     }
-    public static bool Request_Auth(Authorization_Data Data)
+    public static bool RequestAuth(Authorization_Data Data)
     {
         string Json = JsonUtility.ToJson(Data);
         string Target = "Authorization.php";
         string res = Request(Json, Target);
         return res != "";
     }
-
+    public static void Request_Auth(Authorization_Data data, Action<string> callback)
+    {
+        string json = JsonUtility.ToJson(data);
+        string target = "Authorization.php";
+        string res = "";
+        _executor.StartCoroutine(RequestCoroutine(json, target, callback));
+    }
     public static bool Request_UploadCharacter(UploadCharacterData Data)
     {
         string Json = JsonUtility.ToJson(Data);
