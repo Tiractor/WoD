@@ -6,7 +6,7 @@ public class Counter
     [System.NonSerialized] public GroupCounters ParentCounters;
     public str_Data name_spec;
     public int curValue;
-    public string description;
+    //public string description;
     public Counter(GroupCounters parent, string Name)
     {
         ParentCounters = parent;

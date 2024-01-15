@@ -107,6 +107,7 @@ public class Character : MonoBehaviour
 [System.Serializable]
 public class CharacterData
 {
+    public int idBase;
     public str_Data[] BaseData;
     public GroupCounters[] Attributes;
     public GroupCounters[] Skills;
@@ -123,7 +124,7 @@ public class CharacterData
 
     public CharacterData()
     {
-        
+        idBase = -1;
         Attributes = new GroupCounters[BaseNameLib.EAttributes.Length];
         for (int i = 0; i < BaseNameLib.EAttributes.Length; ++i)
         {

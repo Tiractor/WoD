@@ -14,6 +14,10 @@ public class Character_Manager : TaskExecutor<Character_Manager>
         Denote();
         if (WhereInst == null) Debug.LogError("WhereInst not Choosen");
     }
+    public bool CharIsOpen()
+    {
+        return Open_Character != null;
+    }
     [ContextMenu("Create new blank Character")]
     public Character CreateCharacter()
     {
@@ -23,7 +27,7 @@ public class Character_Manager : TaskExecutor<Character_Manager>
         Characters.Add(tempChar);
         OpenCharacter(tempChar);
         tempChar.ConnectedButton = GenerateButton(tempChar);
-        
+        Last._executor.SetLast();
         return tempChar;
     }
     public void CreateCharacterVoid()
@@ -34,6 +38,7 @@ public class Character_Manager : TaskExecutor<Character_Manager>
         Characters.Add(tempChar);
         OpenCharacter(tempChar);
         tempChar.ConnectedButton = GenerateButton(tempChar);
+        Last._executor.SetLast();
     }
     private GameObject GenerateButton(Character Target)
     {
@@ -85,6 +90,14 @@ public class Character_Manager : TaskExecutor<Character_Manager>
         {
             FileManager.SaveToFile(cur.gameObject.name, cur._data);
         }
+    }
+    public void SaveCurrentLocal()
+    {
+        FileManager.SaveToFile(Open_Character.gameObject.name, Open_Character._data);
+    }
+    public void SaveCurrentServer()
+    {
+        Char_Manager.PrepareCharData(Open_Character._data);
     }
     [ContextMenu("Load all Characters")]
     public void LoadCharacters()
