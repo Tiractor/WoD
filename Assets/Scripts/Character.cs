@@ -93,13 +93,13 @@ public class Character : MonoBehaviour
     public void ReGenerate()
     {
         ClearList();
-        _data = new CharacterData();
         GenerateList();
     }
 
     public Character ApplyData(CharacterData Data)
     {
         _data = Data;
+        ReGenerate();
         return this;
     }
 }

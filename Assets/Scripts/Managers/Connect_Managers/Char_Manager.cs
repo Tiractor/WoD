@@ -10,9 +10,9 @@ public class UploadCharacterData
 [System.Serializable]
 public class GettedCharacterData
 {
+    public string CharacterId;
     public string CharacterName;
-    public int CharacterId;
-    public CharacterData CharacterData;
+    public string CharacterData;
 }
 
 [System.Serializable]
@@ -54,10 +54,10 @@ public class Char_Manager : TaskExecutor<Char_Manager>
         DataToGetCharacter tempdata = new DataToGetCharacter(Which);
         tempdata.Login = Authorization._executor.UserData.Login;
         string temp = Connector.Request_GetCharacter(tempdata);
-        Debug.Log(temp);
         GettedCharacterData data = JsonUtility.FromJson<GettedCharacterData>(temp);
-        Debug.Log(data.CharacterData);
-        Character_Manager._executor.CreateCharacter(data.CharacterData);
+        CharacterData Character = JsonUtility.FromJson<CharacterData>(data.CharacterData);
+        Character.idBase = int.Parse(data.CharacterId);
+        Character_Manager._executor.CreateCharacter(Character);
     }
     public static void JoinChar(ChooseData Which)
     {

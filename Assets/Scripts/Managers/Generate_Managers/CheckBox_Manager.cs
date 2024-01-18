@@ -119,7 +119,7 @@ public class CheckBox_Manager : MonoBehaviour
         RectTransform newObjectRect = newObject.GetComponent<RectTransform>();
         newObjectRect.localScale = Vector3.one;
         if(!ConnectedData.ParentCounters._notNeedCheckBoxes) newObjectRect.sizeDelta = new Vector2(150,40);
-
+        temp_IF.text = ConnectedData.name_spec.changeableData;
         temp_IF.onValueChanged.AddListener(delegate
             {
                 ConnectedData.name_spec.ApplyData(temp_IF);

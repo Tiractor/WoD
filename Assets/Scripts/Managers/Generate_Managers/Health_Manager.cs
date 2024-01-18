@@ -71,7 +71,7 @@ public class Health_Manager : MonoBehaviour
             RectTransform tempRectTransform = temp.GetComponent<RectTransform>();
             Toggle temp_Toggle = temp.GetComponent<Toggle>();
 
-            temp_Toggle.isOn = (i < MaxHealth._attributes[0].curValue);
+            temp_Toggle.isOn = (i <= MaxHealth._attributes[0].curValue);
             temp_Toggle.onValueChanged.AddListener(delegate
             {
                 ReSetCurrentValue(temp_Toggle);
@@ -82,8 +82,9 @@ public class Health_Manager : MonoBehaviour
     }
     private void CurrentHealth()
     {
+        
         var CurHealth = ConnectedData._cur_Health;
-        if(CurHealth_Layout == null) CurHealth_Layout = GenerateHorizontalLayout("CurHealth_Layout");
+        if (CurHealth_Layout == null) CurHealth_Layout = GenerateHorizontalLayout("CurHealth_Layout");
         if (ConnectedData._max_Health._attributes[0].curValue+1 >= CurHealth_CheckBoxes.Count) 
         {
             int start = CurHealth_CheckBoxes.Count;
@@ -94,8 +95,7 @@ public class Health_Manager : MonoBehaviour
                 temp.name = "CurrentHealth_4State_Checkbox_" + CurHealth_CheckBoxes.Count;
                 RectTransform tempRectTransform = temp.GetComponent<RectTransform>();
                 FourStatesCheckBox temp_Toggle = temp.GetComponent<FourStatesCheckBox>();
-
-                temp_Toggle.SetState(CurHealth._attributes[CurHealth_CheckBoxes.Count+i].curValue);
+                temp_Toggle.SetState(CurHealth._attributes[start + i].curValue);
                 temp_Toggle.onValueChanged.AddListener( currentCounter.SetValue );
                 CurHealth_CheckBoxes.Add(temp_Toggle);
             }

@@ -158,7 +158,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Standalone: com.DefaultCompany.WoD
+    Standalone: com.Tiractor.WoD
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -770,4 +770,4 @@ PlayerSettings:
   hmiLoadingImage: {fileID: 0}
   platformRequiresReadableAssets: 0
   virtualTexturingSupportEnabled: 0
-  insecureHttpOption: 2
+  insecureHttpOption: 0

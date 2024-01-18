@@ -103,7 +103,7 @@ public class Connector : TaskExecutor<Connector>
             {
                 Debug.Log(TargetLink + " Server response: " + www.downloadHandler.text);
                 ServerResponce temp = JsonUtility.FromJson<ServerResponce>(www.downloadHandler.text);
-                Debug.Log(temp.result);
+                //Debug.Log(temp.result);
                 if (temp.result == "error")
                 {
                     ErrorProcessor(temp.response);
@@ -148,7 +148,6 @@ public class Connector : TaskExecutor<Connector>
         string Json = JsonUtility.ToJson(Data);
         string Target = "GetCharacter.php";
         string res = Request(Json, Target);
-        Debug.Log(res);
         return res;
     }
 

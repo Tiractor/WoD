@@ -67,7 +67,9 @@ public class Character_Manager : TaskExecutor<Character_Manager>
     }
     public void CreateCharacter(CharacterData Load)
     {
-        CreateCharacter().ApplyData(Load);
+        Character temp = CreateCharacter();
+        temp.ApplyData(Load);
+        temp.ReGenerate();
     }
     [ContextMenu("Clear Character List")]
     public void ClearCharacters()

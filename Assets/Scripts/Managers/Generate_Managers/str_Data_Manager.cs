@@ -50,7 +50,7 @@ public class str_Data_Manager : MonoBehaviour
         tempRectTransform.anchorMin = Prefab_Manager._executor.AnchorsIF[0];
         tempRectTransform.anchorMax = Prefab_Manager._executor.AnchorsIF[1];
         tempRectTransform.anchoredPosition = Vector2.zero;
-
+        temp_IF.text = ConnectedData.changeableData;
         temp_IF.onValueChanged.AddListener(delegate
             {
                 ConnectedData.ApplyData(temp_IF);
