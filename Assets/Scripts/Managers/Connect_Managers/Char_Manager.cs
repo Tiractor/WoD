@@ -34,8 +34,8 @@ public class Request
 }
 public class Char_Manager : TaskExecutor<Char_Manager>
 {
-    [SerializeField] private GameObject WhereInst;
-    [SerializeField] private GameObject WhereInst_Group;
+    [SerializeField] private Clear WhereInst;
+    [SerializeField] private Clear WhereInst_Group;
     private void Awake()
     {
         Denote();
@@ -68,6 +68,7 @@ public class Char_Manager : TaskExecutor<Char_Manager>
     }
     public void UserCharactersServer()
     {
+        WhereInst_Group.Clearing();
         RequestData data = new RequestData();
         data.Login = Authorization._executor.UserData.Login;
         string temp = Connector.Request_UserCharacters(data);
@@ -89,6 +90,7 @@ public class Char_Manager : TaskExecutor<Char_Manager>
     }
     public void UserCharactersServerForJoin()
     {
+        WhereInst.Clearing();
         RequestData data = new RequestData();
         data.Login = Authorization._executor.UserData.Login;
         string temp = Connector.Request_UserCharacters(data);
@@ -109,6 +111,7 @@ public class Char_Manager : TaskExecutor<Char_Manager>
     }
     public void GroupCharactersServer(GroupCharacterRequest data)
     {
+        WhereInst_Group.Clearing();
         string temp = Connector.Request_GroupCharacters(data);
         Group_Manager._executor.WhereChar.SetActive(true);
         Debug.Log(temp);

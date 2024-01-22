@@ -9,6 +9,7 @@ public class UI_Manager : MonoBehaviour
 
     [SerializeField] private GameObject Group;
     [SerializeField] private GameObject Save;
+    [SerializeField] private GameObject ServerLoad;
     private void Awake()
     {
         if(Connector._executor == null)

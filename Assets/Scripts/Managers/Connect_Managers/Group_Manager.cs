@@ -13,7 +13,7 @@ public class ConnectGroup
 }
 public class Group_Manager : TaskExecutor<Group_Manager>
 {
-    [SerializeField] private GameObject WhereInst;
+    [SerializeField] private Clear WhereInst;
     public GameObject WhereChar;
     public GroupChooseData CurrentGroup;
     private void Awake()
@@ -29,6 +29,7 @@ public class Group_Manager : TaskExecutor<Group_Manager>
     }
     public void UserGroups()
     {
+        WhereInst.Clearing();
         RequestData data = new RequestData();
         data.Login = Authorization._executor.UserData.Login;
         string temp = Connector.Request_UserGroups(data);

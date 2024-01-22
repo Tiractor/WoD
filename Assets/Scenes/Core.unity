@@ -10223,6 +10223,7 @@ MonoBehaviour:
   CharManager: {fileID: 1201103475}
   Group: {fileID: 1672558329}
   Save: {fileID: 4150641510374520591}
+  ServerLoad: {fileID: 695596413}
 --- !u!114 &1884736713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10236,8 +10237,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Executor: {fileID: 1884736713}
-  WhereInst: {fileID: 578222083}
-  WhereInst_Group: {fileID: 1907624732}
+  WhereInst: {fileID: 578222088}
+  WhereInst_Group: {fileID: 1907624733}
 --- !u!114 &1884736714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10251,7 +10252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Executor: {fileID: 1884736714}
-  WhereInst: {fileID: 830845256}
+  WhereInst: {fileID: 830845261}
   WhereChar: {fileID: 1454291930}
   CurrentGroup:
     GroupName: 
